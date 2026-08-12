@@ -162,3 +162,5 @@ CORS_ALLOWED_ORIGINS = config(
     default='http://localhost:5173',
     cast=Csv(),
 )
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
