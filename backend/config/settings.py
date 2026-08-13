@@ -164,3 +164,5 @@ CORS_ALLOWED_ORIGINS = config(
 )
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+WEATHER_API_URL = config('WEATHER_API_URL', default='http://external-api:8001/api/weather/')

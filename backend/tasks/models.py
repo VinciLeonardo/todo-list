@@ -25,6 +25,16 @@ class Task(models.Model):
     )
     due_date = models.DateField(null=True, blank=True)
 
+    is_outdoor = models.BooleanField(
+        default=False,
+        help_text='Marque se esta tarefa é uma atividade ao ar livre.',
+    )
+    city = models.CharField(
+        max_length=100,
+        blank=True,
+        help_text='Cidade usada para consultar a previsão do tempo (obrigatório se is_outdoor).',
+    )
+
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
