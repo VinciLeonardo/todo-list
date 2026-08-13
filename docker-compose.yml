@@ -17,6 +17,16 @@ services:
       timeout: 5s
       retries: 5
 
+  external-api:
+    build: ./external-api
+    container_name: todo_external_api
+    restart: unless-stopped
+    command: python manage.py runserver 0.0.0.0:8001
+    volumes:
+      - ./external-api:/app
+    ports:
+      - "8001:8001"
+
   backend:
     build: ./backend
     container_name: todo_backend
@@ -31,6 +41,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+      external-api:
+        condition: service_started
 
 volumes:
   postgres_data:
