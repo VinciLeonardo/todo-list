@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
+import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { listTasks, createTask, updateTask, deleteTask } from "../api/tasks";
 import { listCategories } from "../api/categories";
@@ -68,6 +69,7 @@ export default function TasksPage() {
     <div className="tasks-page">
       <header>
         <h1>Minhas Tarefas</h1>
+        <Link to="/categories">Categorias</Link>
         <button onClick={logout}>Sair</button>
       </header>
 
