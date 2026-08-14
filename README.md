@@ -26,14 +26,14 @@ O projeto é dividido em três serviços independentes, orquestrados via Docker 
                         └────────────────┘
 ```
 
-- **backend/** — Django + Django REST Framework. API principal: autenticação
+- **backend/** Django + Django REST Framework. API principal: autenticação
   (JWT via `djangorestframework-simplejwt`), usuários, tarefas, categorias e
   compartilhamento de tarefas entre usuários. Consome a `external-api` para
   sugerir o melhor dia para tarefas outdoor.
-- **frontend/** — React (Vite). Interface web: login/cadastro, CRUD de
+- **frontend/** React (Vite). Interface web: login/cadastro, CRUD de
   tarefas e categorias, compartilhamento, filtros, paginação e visualização
   da previsão do tempo.
-- **external-api/** — Django REST Framework isolada, simulando uma API de
+- **external-api/** Django REST Framework isolada, simulando uma API de
   previsão do tempo de terceiros. Separada da API principal para modelar
   uma integração real com um serviço externo (contrato HTTP próprio, sem
   acoplamento ao banco de dados do backend).
@@ -43,8 +43,8 @@ O projeto é dividido em três serviços independentes, orquestrados via Docker 
 Em vez de simular a previsão do tempo dentro do próprio backend, ela foi
 isolada em um serviço HTTP à parte. Isso obriga o backend a consumir a
 integração como consumiria qualquer API de terceiros de verdade (ex.:
-OpenWeather) — com timeout, tratamento de erro de rede
-(`WeatherServiceError`) e um contrato de dados desacoplado — em vez de
+OpenWeather) com timeout, tratamento de erro de rede
+(`WeatherServiceError`) e um contrato de dados desacoplado em vez de
 apenas chamar uma função Python local.
 
 ### Decisões de design
@@ -78,6 +78,7 @@ docker compose up --build
 ```
 
 Serviços disponíveis:
+
 - Frontend: http://localhost:5173
 - Backend (API): http://localhost:8000/api/
 - Admin do backend: http://localhost:8000/admin/
@@ -101,6 +102,7 @@ cp .env.example .env       # ajuste DB_HOST=localhost se não usar Docker
 python manage.py migrate
 python manage.py runserver
 ```
+
 </details>
 
 <details>
@@ -114,6 +116,7 @@ pip install -r requirements.txt
 python manage.py migrate
 python manage.py runserver 0.0.0.0:8001
 ```
+
 </details>
 
 <details>
@@ -124,15 +127,16 @@ cd frontend
 npm install
 npm run dev
 ```
+
 </details>
 
 ## Testes
 
-| Camada                       | Local          | Comando                          |
-|-------------------------------|----------------|-----------------------------------|
-| Backend (unitários + API)     | `backend/`     | `pytest`                          |
-| API externa                   | `external-api/`| `pytest`                          |
-| End-to-end (Selenium)         | `e2e/`         | `pytest -v` (veja `e2e/README.md`)|
+| Camada                    | Local           | Comando                            |
+| ------------------------- | --------------- | ---------------------------------- |
+| Backend (unitários + API) | `backend/`      | `pytest`                           |
+| API externa               | `external-api/` | `pytest`                           |
+| End-to-end (Selenium)     | `e2e/`          | `pytest -v` (veja `e2e/README.md`) |
 
 O E2E sobe o fluxo completo em um Chrome real: cadastro, login, criação e
 conclusão de tarefas. Backend, banco e API externa precisam estar de pé
@@ -155,4 +159,4 @@ build do frontend (`npm run build`).
 
 ## Possíveis próximos passos
 
-- Deploy em nuvem (AWS/Azure) — avaliado como extra, fora do escopo principal do teste.
+- Deploy em nuvem (AWS/Azure) avaliado como extra, fora do escopo principal do teste.
