@@ -1,0 +1,96 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  backend-tests:
+    name: Testes do Backend
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: todo_db
+          POSTGRES_USER: todo_user
+          POSTGRES_PASSWORD: todo_password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependências
+        working-directory: backend
+        run: pip install -r requirements.txt
+
+      - name: Rodar testes com pytest
+        working-directory: backend
+        env:
+          DB_NAME: todo_db
+          DB_USER: todo_user
+          DB_PASSWORD: todo_password
+          DB_HOST: localhost
+          DB_PORT: 5432
+          SECRET_KEY: ci-test-secret-key-not-for-production
+          DEBUG: "True"
+        run: pytest -v
+
+  external-api-tests:
+    name: Testes da API Externa
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependências
+        working-directory: external-api
+        run: pip install -r requirements.txt
+
+      - name: Rodar testes com pytest
+        working-directory: external-api
+        run: pytest -v
+
+  frontend-build:
+    name: Build do Frontend
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Configurar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Instalar dependências
+        working-directory: frontend
+        run: npm install
+
+      - name: Build de produção
+        working-directory: frontend
+        run: npm run build
