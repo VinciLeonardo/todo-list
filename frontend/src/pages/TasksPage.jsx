@@ -67,10 +67,16 @@ export default function TasksPage() {
 
   return (
     <div className="tasks-page">
-      <header>
+      <header className="app-header">
         <h1>Minhas Tarefas</h1>
-        <Link to="/categories">Categorias</Link>
-        <button onClick={logout}>Sair</button>
+        <nav className="app-nav">
+          <Link className="nav-link" to="/categories">
+            Categorias
+          </Link>
+          <button className="btn-ghost" onClick={logout}>
+            Sair
+          </button>
+        </nav>
       </header>
 
       <TaskForm categories={categories} onSubmit={handleCreate} />
@@ -108,7 +114,7 @@ export default function TasksPage() {
       {error && <p className="error-message">{error}</p>}
 
       {loading ? (
-        <p>Carregando...</p>
+        <p className="state-message">Carregando...</p>
       ) : (
         <ul className="task-list">
           {tasks.map((task) => (
@@ -120,7 +126,9 @@ export default function TasksPage() {
               onShared={loadTasks}
             />
           ))}
-          {tasks.length === 0 && <p>Nenhuma tarefa encontrada.</p>}
+          {tasks.length === 0 && (
+            <p className="state-message">Nenhuma tarefa encontrada.</p>
+          )}
         </ul>
       )}
 

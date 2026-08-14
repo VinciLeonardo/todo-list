@@ -25,21 +25,31 @@ export default function TaskItem({ task, onToggleComplete, onDelete, onShared })
         )}
         {task.due_date && <span className="task-due-date">{task.due_date}</span>}
 
-        {task.is_outdoor && (
-          <button type="button" onClick={() => setIsWeatherOpen(true)}>
-            Ver previsão do tempo
+        <div className="task-actions">
+          {task.is_outdoor && (
+            <button
+              type="button"
+              className="btn-ghost"
+              onClick={() => setIsWeatherOpen(true)}
+            >
+              Previsão
+            </button>
+          )}
+          <button
+            type="button"
+            className="btn-ghost"
+            onClick={() => setIsSharing(true)}
+          >
+            Compartilhar
           </button>
-        )}
-        <button type="button" onClick={() => setIsSharing(true)}>
-          Compartilhar
-        </button>
-        <button
-          type="button"
-          onClick={() => onDelete(task.id)}
-          className="delete-button"
-        >
-          Excluir
-        </button>
+          <button
+            type="button"
+            onClick={() => onDelete(task.id)}
+            className="delete-button"
+          >
+            Excluir
+          </button>
+        </div>
       </li>
 
       {isSharing && (

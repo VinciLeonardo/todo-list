@@ -57,7 +57,7 @@ export default function LoginPage() {
           {loading ? "Entrando..." : "Entrar"}
         </button>
 
-        <p>
+        <p className="auth-switch">
           Não tem conta? <Link to="/register">Cadastre-se</Link>
         </p>
       </form>

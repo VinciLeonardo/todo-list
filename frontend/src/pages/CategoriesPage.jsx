@@ -32,9 +32,13 @@ export default function CategoriesPage() {
 
   return (
     <div className="categories-page">
-      <header>
+      <header className="app-header">
         <h1>Categorias</h1>
-        <Link to="/tasks">Voltar para tarefas</Link>
+        <nav className="app-nav">
+          <Link className="nav-link" to="/tasks">
+            Voltar para tarefas
+          </Link>
+        </nav>
       </header>
 
       <CategoryForm onSubmit={handleCreate} />
@@ -42,7 +46,7 @@ export default function CategoriesPage() {
       {error && <p className="error-message">{error}</p>}
 
       {loading ? (
-        <p>Carregando...</p>
+        <p className="state-message">Carregando...</p>
       ) : (
         <ul className="category-list">
           {categories.map((category) => (
@@ -54,7 +58,9 @@ export default function CategoriesPage() {
               {category.name}
             </li>
           ))}
-          {categories.length === 0 && <p>Nenhuma categoria cadastrada.</p>}
+          {categories.length === 0 && (
+            <p className="state-message">Nenhuma categoria cadastrada.</p>
+          )}
         </ul>
       )}
     </div>

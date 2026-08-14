@@ -71,7 +71,7 @@ export default function RegisterPage() {
           {loading ? "Criando..." : "Criar conta"}
         </button>
 
-        <p>
+        <p className="auth-switch">
           Já tem conta? <Link to="/login">Entrar</Link>
         </p>
       </form>

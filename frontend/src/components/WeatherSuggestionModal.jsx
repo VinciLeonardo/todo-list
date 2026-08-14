@@ -1,6 +1,16 @@
 import { useEffect, useState } from "react";
 import { getWeatherSuggestion } from "../api/tasks";
 
+// Maps a temperature onto a cold (sky blue) → warm (amber) hue
+// scale, so the forecast list reads at a glance like a real
+// weather strip instead of a plain table of numbers.
+function temperatureColor(celsius) {
+  const clamped = Math.max(0, Math.min(35, celsius));
+  const ratio = clamped / 35;
+  const hue = 205 - ratio * 175; // 205 (sky) -> 30 (amber)
+  return `hsl(${hue}, 42%, 45%)`;
+}
+
 export default function WeatherSuggestionModal({ task, onClose }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -66,8 +76,21 @@ export default function WeatherSuggestionModal({ task, onClose }) {
                 <ul className="weather-forecast-list">
                   {forecast.map((day) => (
                     <li key={day.date} className="weather-forecast-item">
-                      <strong>{day.date}</strong> - {day.condition} -{" "}
-                      {day.temperature_celsius}°C
+                      <span
+                        className="temp-dot"
+                        style={{
+                          background: temperatureColor(
+                            day.temperature_celsius,
+                          ),
+                        }}
+                      />
+                      <span className="forecast-date">{day.date}</span>
+                      <span className="forecast-condition">
+                        {day.condition}
+                      </span>
+                      <span className="forecast-temp">
+                        {day.temperature_celsius}°C
+                      </span>
                     </li>
                   ))}
                 </ul>
