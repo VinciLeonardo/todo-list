@@ -15,6 +15,15 @@ export async function updateTask(id, data) {
   return response.data;
 }
 
+export async function listShareableUsers() {
+  const response = await apiClient.get("/auth/users/");
+  return response.data;
+}
+
+export async function shareTask(id, userIds) {
+  return updateTask(id, { shared_with: userIds });
+}
+
 export async function deleteTask(id) {
   await apiClient.delete(`/tasks/${id}/`);
 }

@@ -117,6 +117,7 @@ export default function TasksPage() {
               task={task}
               onToggleComplete={handleToggleComplete}
               onDelete={handleDelete}
+              onShared={loadTasks}
             />
           ))}
           {tasks.length === 0 && <p>Nenhuma tarefa encontrada.</p>}

@@ -182,3 +182,50 @@
     border-right-color: var(--border);
   }
 }
+
+.share-task-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  z-index: 1000;
+}
+
+.share-task-modal-content {
+  width: min(520px, 100%);
+  max-height: 80vh;
+  overflow-y: auto;
+  background: var(--bg);
+  color: var(--text-h);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.share-users-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 12px 0;
+  text-align: left;
+}
+
+.share-user-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.share-task-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.share-empty-state {
+  margin: 12px 0;
+}
