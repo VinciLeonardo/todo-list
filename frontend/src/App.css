@@ -229,3 +229,42 @@
 .share-empty-state {
   margin: 12px 0;
 }
+
+.weather-city {
+  margin-bottom: 10px;
+}
+
+.weather-best-day {
+  text-align: left;
+  background: var(--accent-bg);
+  border: 1px solid var(--accent-border);
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 12px;
+}
+
+.weather-best-day h4 {
+  margin: 0 0 6px 0;
+}
+
+.weather-forecast-list {
+  list-style: none;
+  text-align: left;
+  margin: 0;
+  padding: 0;
+}
+
+.weather-forecast-item {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.weather-forecast-item:last-child {
+  border-bottom: none;
+}
+
+.task-outdoor-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

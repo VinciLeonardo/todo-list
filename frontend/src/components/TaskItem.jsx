@@ -1,8 +1,10 @@
 import { useState } from "react";
 import ShareTaskModal from "./ShareTaskModal";
+import WeatherSuggestionModal from "./WeatherSuggestionModal";
 
 export default function TaskItem({ task, onToggleComplete, onDelete, onShared }) {
   const [isSharing, setIsSharing] = useState(false);
+  const [isWeatherOpen, setIsWeatherOpen] = useState(false);
 
   return (
     <>
@@ -23,6 +25,11 @@ export default function TaskItem({ task, onToggleComplete, onDelete, onShared })
         )}
         {task.due_date && <span className="task-due-date">{task.due_date}</span>}
 
+        {task.is_outdoor && (
+          <button type="button" onClick={() => setIsWeatherOpen(true)}>
+            Ver previsão do tempo
+          </button>
+        )}
         <button type="button" onClick={() => setIsSharing(true)}>
           Compartilhar
         </button>
@@ -40,6 +47,12 @@ export default function TaskItem({ task, onToggleComplete, onDelete, onShared })
           task={task}
           onShared={onShared}
           onClose={() => setIsSharing(false)}
+        />
+      )}
+      {isWeatherOpen && (
+        <WeatherSuggestionModal
+          task={task}
+          onClose={() => setIsWeatherOpen(false)}
         />
       )}
     </>
