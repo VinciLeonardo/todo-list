@@ -44,5 +44,17 @@ services:
       external-api:
         condition: service_started
 
+  frontend:
+    build: ./frontend
+    container_name: todo_frontend
+    restart: unless-stopped
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
 volumes:
   postgres_data:
