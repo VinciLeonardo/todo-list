@@ -156,7 +156,3 @@ build do frontend (`npm run build`).
 - [x] Docker Compose (banco, API externa, backend, frontend)
 - [x] Testes end-to-end (Selenium)
 - [x] CI/CD com GitHub Actions
-
-## Possíveis próximos passos
-
-- Deploy em nuvem (AWS/Azure) avaliado como extra, fora do escopo principal do teste.
